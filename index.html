@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlixletteMod</title>
+  <meta name="description" content="A collection of real projects by Omelette — simulations, streaming, and game mods." />
+  <meta name="keywords" content="portfolio, game mods, simulation, streaming, sandboxels, projects" />
+  <meta property="og:title" content="FlixletteMod" />
+  <meta property="og:description" content="Projects by Omelette: simulations, streaming, and game mods." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0a0a;
+      --bg-card:   #0e0e0e;
+      --bg-card-h: #131313;
+      --border:    rgba(255,255,255,0.07);
+      --border-h:  rgba(255,255,255,0.12);
+      --text-1:    #d4d4d4;
+      --text-2:    #737373;
+      --text-3:    #404040;
+      --text-4:    #262626;
+      --green:     #4ade80;
+      --amber:     #fbbf24;
+      --slate:     #94a3b8;
+      --font:      'Geist', -apple-system, sans-serif;
+      --mono:      'Geist Mono', 'Courier New', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-1);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    body.light-mode {
+      --bg: #f3f4f6;
+      --bg-card: #ffffff;
+      --bg-card-h: #f8fafc;
+      --border: rgba(0,0,0,0.08);
+      --border-h: rgba(0,0,0,0.12);
+      --text-1: #18181b;
+      --text-2: #52525b;
+      --text-3: #71717a;
+      --text-4: #a1a1aa;
+    }
+
+    ::selection { background: rgba(255,255,255,0.12); }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: var(--font); cursor: pointer; }
+
+    #site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      background: rgba(10,10,10,0.92);
+      border-bottom: 1px solid transparent;
+      backdrop-filter: blur(0px);
+      transition: border-color 0.2s, backdrop-filter 0.2s, background 0.2s;
+    }
+    #site-header.scrolled {
+      border-bottom-color: var(--border);
+      backdrop-filter: blur(16px);
+      background: rgba(10,10,10,0.95);
+    }
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-mark {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: #c8c8c8;
+      letter-spacing: -0.03em;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .nav a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-2);
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: color 0.15s, background 0.15s;
+      letter-spacing: -0.01em;
+    }
+    .nav a:hover {
+      color: #e0e0e0;
+      background: rgba(255,255,255,0.05);
+    }
+    .nav-divider {
+      width: 1px;
+      height: 16px;
+      background: rgba(255,255,255,0.07);
+      margin: 0 6px;
+    }
+    .nav-cta {
+      font-size: 12px !important;
+      font-weight: 600 !important;
+      color: #a0a0a0 !important;
+      padding: 6px 12px !important;
+      border: 1px solid rgba(255,255,255,0.09) !important;
+      background: rgba(255,255,255,0.03) !important;
+      display: inline-flex !important;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-cta:hover {
+      color: #d0d0d0 !important;
+      border-color: rgba(255,255,255,0.15) !important;
+      background: rgba(255,255,255,0.06) !important;
+    }
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-2);
+      padding: 6px;
+      border-radius: 6px;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s;
+    }
+    .menu-btn:hover { color: var(--text-1); }
+    .theme-btn {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: #9a9a9a;
+      border-radius: 7px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all .15s;
+      margin-left: 8px;
+    }
+    .theme-btn:hover { color: #ddd; background: rgba(255,255,255,0.08); }
+    body.light-mode .theme-btn {
+      border-color: rgba(0,0,0,0.12);
+      background: rgba(0,0,0,0.03);
+      color: #3f3f46;
+    }
+    body.light-mode .theme-btn:hover { background: rgba(0,0,0,0.08); }
+    .nav a.active-link, .footer-links a.active-link {
+      color: #e6e6e6 !important;
+      background: rgba(255,255,255,0.08);
+      border-radius: 6px;
+    }
+    body.light-mode .nav a.active-link, body.light-mode .footer-links a.active-link {
+      color: #18181b !important;
+      background: rgba(0,0,0,0.08);
+    }
+
+    #mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 56px;
+      left: 0; right: 0; bottom: 0;
+      background: #0c0c0c;
+      z-index: 99;
+      padding: 24px;
+      flex-direction: column;
+    }
+    #mobile-drawer.open { display: flex; }
+    .mobile-link {
+      display: block;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-2);
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: color 0.15s;
+      letter-spacing: -0.02em;
+    }
+    .mobile-link:hover { color: var(--text-1); }
+
+    .page-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    section { padding: 80px 0; }
+    .divider-line {
+      height: 1px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px rgba(74,222,128,0.6);
+      animation: pulse-dot 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero-eyebrow span {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--green);
+      letter-spacing: 0.02em;
+    }
+    .hero-title {
+      font-size: clamp(52px, 9vw, 84px);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1.0;
+      color: #d8d8d8;
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-2);
+      max-width: 460px;
+      letter-spacing: -0.01em;
+    }
+    .hero-sub em {
+      font-style: normal;
+      color: #949494;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      font-family: var(--mono);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.01em;
+    }
+    .badge-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .badge-live {
+      color: var(--green);
+      background: rgba(74,222,128,0.07);
+      border: 1px solid rgba(74,222,128,0.18);
+    }
+    .badge-live .badge-dot {
+      background: var(--green);
+      box-shadow: 0 0 5px rgba(74,222,128,0.7);
+      animation: pulse-dot 2s infinite;
+    }
+    .badge-beta {
+      color: var(--amber);
+      background: rgba(251,191,36,0.07);
+      border: 1px solid rgba(251,191,36,0.18);
+    }
+    .badge-beta .badge-dot { background: var(--amber); }
+    .badge-wip {
+      color: var(--slate);
+      background: rgba(148,163,184,0.07);
+      border: 1px solid rgba(148,163,184,0.18);
+    }
+    .badge-wip .badge-dot { background: var(--slate); }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+    .card:hover {
+      background: var(--bg-card-h);
+      border-color: var(--border-h);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+    .card-featured { padding: 28px; }
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .card-tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-3);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-family: var(--mono);
+    }
+    .card-icon-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6a6a6a;
+      margin-bottom: 16px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .card:hover .card-icon-wrap {
+      color: #b0b0b0;
+      border-color: rgba(255,255,255,0.12);
+    }
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #b8b8b8;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+      transition: color 0.2s;
+    }
+    .card-featured .card-title { font-size: 21px; }
+    .card:hover .card-title { color: #e0e0e0; }
+    .card-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text-3);
+      transition: color 0.2s;
+    }
+    .card:hover .card-desc { color: #606060; }
+    .card-footer {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-cta-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-3);
+      letter-spacing: -0.01em;
+      transition: color 0.2s;
+    }
+    .card:hover .card-cta-label { color: #a0a0a0; }
+    .card-arrow {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      transition: all 0.2s;
+    }
+    .card:hover .card-arrow {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.1);
+      color: #b0b0b0;
+      transform: translate(1px, -1px);
+    }
+
+    .project-featured { margin-bottom: 12px; }
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .stat-cell {
+      background: var(--bg);
+      text-align: center;
+      padding: 28px 16px;
+    }
+    .stat-val {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #888;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-4);
+      letter-spacing: 0.02em;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .about-heading {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #c0c0c0;
+      margin-bottom: 16px;
+    }
+    .about-body {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-3);
+      margin-bottom: 16px;
+    }
+    .check-list {
+      list-style: none;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .check-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #646464;
+    }
+    .check-list .icon { color: var(--green); flex-shrink: 0; }
+
+    .info-cards { display: flex; flex-direction: column; gap: 10px; }
+    .info-card {
+      padding: 20px;
+      border-radius: 10px;
+      background: #0c0c0c;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .info-card:hover {
+      background: #111;
+      border-color: rgba(255,255,255,0.09);
+    }
+    .info-card-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      margin-bottom: 14px;
+    }
+    .info-card h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #a0a0a0;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .info-card p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-3);
+    }
+
+    .contact-heading {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #c0c0c0;
+      margin-bottom: 12px;
+    }
+    .contact-sub {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-3);
+      margin-bottom: 18px;
+      max-width: 400px;
+    }
+    .tabs-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: transparent;
+      color: #808080;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: all .15s;
+    }
+    .tab-btn:hover { color: #b0b0b0; border-color: rgba(255,255,255,0.13); }
+    .tab-btn.active {
+      background: rgba(255,255,255,0.07);
+      color: #ddd;
+      border-color: rgba(255,255,255,0.16);
+    }
+    .tab-panel {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      background: #0c0c0c;
+      padding: 12px 14px;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pixel-chip {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b5b5b5;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      flex-shrink: 0;
+    }
+    .panel-note { font-size: 13px; color: #8c8c8c; }
+    .contact-email {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-4);
+      font-family: var(--mono);
+    }
+    .home-actions {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .home-tab-btn, .back-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: #b5b5b5;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: all .15s;
+    }
+    .home-tab-btn:hover, .back-home-btn:hover {
+      background: rgba(255,255,255,0.08);
+      color: #f1f1f1;
+      border-color: rgba(255,255,255,0.18);
+    }
+    .content-tab { display: none; }
+    .content-tab.active { display: block; animation: tab-in .35s ease; }
+    @keyframes tab-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .tab-heading-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .tab-actions { display:flex; align-items:center; gap:8px; }
+    .ghost-btn {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: #a0a0a0;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all .15s;
+    }
+    .ghost-btn:hover { color:#e2e2e2; background: rgba(255,255,255,0.08); }
+    .filters-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 12px; }
+    .filter-chip {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: #8f8f8f;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+    .filter-chip.active { color:#e8e8e8; background: rgba(255,255,255,0.08); }
+    .search-input {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 9px;
+      color: #d4d4d4;
+      padding: 10px 12px;
+      font-size: 13px;
+      margin-bottom: 12px;
+      outline: none;
+    }
+    .search-input:focus { border-color: rgba(255,255,255,0.2); }
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 2px;
+      z-index: 200;
+      background: linear-gradient(90deg, #4ade80, #38bdf8);
+    }
+    #to-top-btn {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.5);
+      color: #d2d2d2;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 120;
+      transition: all .2s;
+    }
+    #to-top-btn.show { display:flex; }
+    #to-top-btn:hover { transform: translateY(-2px); }
+
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+    }
+    .footer-brand {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #a0a0a0;
+      margin-bottom: 10px;
+    }
+    .footer-desc {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-4);
+      max-width: 260px;
+    }
+    .footer-col-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #383838;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 13px;
+      color: #3e3e3e;
+      transition: color 0.15s;
+      letter-spacing: -0.01em;
+    }
+    .footer-links a:hover { color: #909090; }
+    .footer-links-mono a { font-size: 12px; font-family: var(--mono); }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: #2a2a2a;
+      letter-spacing: -0.01em;
+    }
+    .footer-version {
+      font-size: 11px;
+      color: #222;
+      font-family: var(--mono);
+    }
+
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.72);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    #modal-overlay.open { display: flex; }
+    .modal-box {
+      width: 100%;
+      max-width: 600px;
+      max-height: 80vh;
+      background: #0e0e0e;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modal-in 0.18s ease;
+    }
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(8px) scale(0.99); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    .modal-label {
+      font-size: 11px;
+      color: #404040;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      margin-bottom: 3px;
+    }
+    .modal-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #c8c8c8;
+      letter-spacing: -0.02em;
+    }
+    .modal-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .modal-close:hover {
+      background: rgba(255,255,255,0.06);
+      color: #a0a0a0;
+    }
+    .modal-body {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      background: #090909;
+    }
+    .modal-line-nums {
+      padding: 16px 12px;
+      border-right: 1px solid rgba(255,255,255,0.04);
+      flex-shrink: 0;
+      user-select: none;
+      min-width: 44px;
+      text-align: right;
+    }
+    .modal-line-nums span {
+      display: block;
+      font-size: 12px;
+      line-height: 22px;
+      color: #282828;
+      font-family: var(--mono);
+    }
+    .modal-code-wrap {
+      flex: 1;
+      overflow: auto;
+      padding: 16px 20px;
+    }
+    .modal-code-wrap pre {
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 22px;
+      color: #a0a0a0;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      background: #0c0c0c;
+      flex-shrink: 0;
+    }
+    .modal-line-count {
+      font-size: 12px;
+      color: #303030;
+      font-family: var(--mono);
+    }
+    .modal-copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 7px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.03);
+      color: #888;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font);
+      letter-spacing: -0.01em;
+      transition: all 0.15s;
+    }
+    .modal-copy-btn:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.14);
+      color: #c0c0c0;
+    }
+    .modal-copy-btn.copied {
+      background: rgba(74,222,128,0.07);
+      border-color: rgba(74,222,128,0.2);
+      color: var(--green);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 700px) {
+      .nav { display: none; }
+      .menu-btn { display: flex; }
+      .project-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .privacy-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .hero-title { font-size: clamp(42px, 13vw, 72px); }
+    }
+  </style>
+</head>
+<body>
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <div class="logo-mark">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <rect x="1" y="1" width="5" height="5" rx="1" fill="#999"/>
+            <rect x="8" y="1" width="5" height="5" rx="1" fill="#555"/>
+            <rect x="1" y="8" width="5" height="5" rx="1" fill="#555"/>
+            <rect x="8" y="8" width="5" height="5" rx="1" fill="#999"/>
+          </svg>
+        </div>
+        <span class="logo-text">FlixletteMod</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#" data-tab-link="projects" onclick="openContentTab('projects'); return false;" title="Open Projects tab">Projects</a>
+        <a href="#" data-tab-link="about" onclick="openContentTab('about'); return false;" title="Open About tab">About</a>
+        <a href="#" data-tab-link="contact" onclick="openContentTab('contact'); return false;" title="Open Contact tab">Contact</a>
+        <a href="#" data-tab-link="privacy" onclick="openContentTab('privacy'); return false;" title="Open Privacy tab">Privacy</a>
+        <a href="#" data-tab-link="info" onclick="openContentTab('info'); return false;" title="Open Info tab">Info</a>
+        <div class="nav-divider"></div>
+        <a href="#" onclick="openContentTab('contact'); return false;" class="nav-cta" style="border-radius:7px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Contact
+        </a>
+        <button class="theme-btn" onclick="toggleTheme()" title="Toggle light/dark mode">Theme</button>
+      </nav>
+
+      <button class="menu-btn" id="menu-btn" aria-label="Toggle menu">
+        <svg id="menu-icon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <line x1="3" y1="6" x2="15" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="3" y1="12" x2="15" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="mobile-drawer">
+    <a href="#" class="mobile-link" onclick="openContentTab('projects'); closeMenu(); return false;">Projects</a>
+    <a href="#" class="mobile-link" onclick="openContentTab('about'); closeMenu(); return false;">About</a>
+    <a href="#" class="mobile-link" onclick="openContentTab('contact'); closeMenu(); return false;">Contact</a>
+    <a href="#" class="mobile-link" onclick="openContentTab('privacy'); closeMenu(); return false;">Privacy</a>
+    <a href="#" class="mobile-link" onclick="openContentTab('info'); closeMenu(); return false;">Info</a>
+  </div>
+
+  <main>
+    <div class="page-wrap">
+      <section id="home">
+        <div class="fade-up">
+          <div class="hero-eyebrow">
+            <span class="live-dot"></span>
+            <span>Portfolio</span>
+          </div>
+          <h1 class="hero-title">FlixletteMod</h1>
+          <p class="hero-sub">
+            🎮 A collection of real projects by <em>Omelette</em> —
+            simulations, streaming, and game mods. ✨
+          </p>
+          <div class="home-actions">
+            <button class="home-tab-btn" onclick="openContentTab('projects')">Open Projects</button>
+            <button class="home-tab-btn" onclick="openContentTab('about')">Open About</button>
+            <button class="home-tab-btn" onclick="openContentTab('contact')">Open Contact</button>
+            <button class="home-tab-btn" onclick="openContentTab('info')">Open Info</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="page-wrap content-tab" data-tab="projects">
+      <div class="tab-heading-row" style="padding-top: 34px;">
+        <p class="section-label" id="crumb-projects" style="margin-bottom:0;">Home / Projects</p>
+        <div class="tab-actions">
+          <button class="ghost-btn" onclick="copyCurrentTabLink('projects')" title="Copy direct link to this tab">Copy Link</button>
+          <button class="back-home-btn" onclick="goHome()">← Back to Home</button>
+        </div>
+      </div>
+      <section id="projects">
+        <p class="section-label">Projects</p>
+        <input id="project-search" class="search-input" type="search" placeholder="Search projects..." aria-label="Search projects" />
+        <div class="filters-row">
+          <button class="filter-chip active" data-filter="all" onclick="setProjectFilter('all')">All</button>
+          <button class="filter-chip" data-filter="simulation" onclick="setProjectFilter('simulation')">Simulation</button>
+          <button class="filter-chip" data-filter="streaming" onclick="setProjectFilter('streaming')">Streaming</button>
+          <button class="filter-chip" data-filter="mod" onclick="setProjectFilter('mod')">Mod</button>
+        </div>
+
+        <div class="project-featured fade-up project-item" data-tags="simulation sandbox game">
+          <button class="card card-featured" onclick="openLink('https://www.youtube.com')">
+            <div class="card-top">
+              <span class="card-tag">Simulation</span>
+              <span class="badge badge-beta"><span class="badge-dot"></span>🧪 Beta</span>
+            </div>
+            <div class="card-icon-wrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L13.5 8.5L19 10L13.5 11.5L12 17L10.5 11.5L5 10L10.5 8.5L12 3Z"/><path d="M5 3l.8 2.4L8 6l-2.2.6L5 9l-.8-2.4L2 6l2.2-.6L5 3z"/><path d="M19 15l.6 1.8L21 17l-1.4.2-.6 1.8-.6-1.8L17 17l1.4-.2.6-1.8z"/></svg>
+            </div>
+            <div class="card-title">Particle World</div>
+            <p class="card-desc">An interactive falling-sand simulator with hundreds of elements — powders, liquids, gases, fire, electricity — all reacting in real time. <strong>Currently in beta and in the works.</strong></p>
+            <div class="card-footer">
+              <span class="card-cta-label">Open project</span>
+              <span class="card-arrow">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+              </span>
+            </div>
+          </button>
+        </div>
+
+        <div class="project-grid">
+          <div class="fade-up project-item" data-tags="streaming movies shows" style="transition-delay:80ms">
+            <button class="card" onclick="openLink('https://www.youtube.com')">
+              <div class="card-top">
+                <span class="card-tag">Streaming</span>
+                <span class="badge badge-live"><span class="badge-dot"></span>✅ Live</span>
+              </div>
+              <div class="card-icon-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+              </div>
+              <div class="card-title">Open FlixFree</div>
+              <p class="card-desc">Free streaming for movies and shows. Clean interface, fast, no friction.</p>
+              <div class="card-footer">
+                <span class="card-cta-label">Open project</span>
+                <span class="card-arrow">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </span>
+              </div>
+            </button>
+          </div>
+
+          <div class="fade-up project-item" data-tags="mod sandboxels game js" style="transition-delay:160ms">
+            <button class="card" onclick="openCodeModal()">
+              <div class="card-top">
+                <span class="card-tag">Mod</span>
+                <span class="badge badge-beta"><span class="badge-dot"></span>🧪 Beta</span>
+              </div>
+              <div class="card-icon-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              </div>
+              <div class="card-title">Sandboxel Mod</div>
+              <p class="card-desc">PixelLab — a visual node-based element builder mod for Sandboxels. 200+ block types, live injection, built-in code studio.</p>
+              <div class="card-footer">
+                <span class="card-cta-label">View source</span>
+                <span class="card-arrow">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </span>
+              </div>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <div class="page-wrap content-tab" data-tab="info">
+      <div class="tab-heading-row" style="padding-top: 34px;">
+        <p class="section-label" style="margin-bottom:0;">Home / Info</p>
+        <div class="tab-actions">
+          <button class="ghost-btn" onclick="copyCurrentTabLink('info')">Copy Link</button>
+          <button class="back-home-btn" onclick="goHome()">← Back to Home</button>
+        </div>
+      </div>
+      <section style="padding: 20px 0 56px;">
+        <div class="stat-grid fade-up">
+          <div class="stat-cell">
+            <div class="stat-val" data-count="3">3</div>
+            <div class="stat-label">Projects</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-val" data-count="0">0</div>
+            <div class="stat-label">Ads</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-val" data-count="1">1</div>
+            <div class="stat-label">Creator</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-val">∞</div>
+            <div class="stat-label">Particles</div>
+          </div>
+        </div>
+          <div class="info-cards" style="margin-top:12px;">
+          <div class="info-card">
+            <div class="info-card-icon">ℹ️</div>
+            <h4>How this works</h4>
+            <p>Everything now opens as an internal tab view. Use “Back to Home” to return to the landing section.</p>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">🧪</div>
+            <h4>Beta Notes</h4>
+            <p>Particle World and Discord contact flow are still in beta and being actively improved.</p>
+          </div>
+          <div class="info-card" style="margin-top:10px;">
+            <div class="info-card-icon">💬</div>
+            <h4>Random Quote</h4>
+            <p id="random-quote">Loading quote...</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="page-wrap content-tab" data-tab="about">
+      <div class="tab-heading-row" style="padding-top: 34px;">
+        <p class="section-label" style="margin-bottom:0;">Home / About</p>
+        <div class="tab-actions">
+          <button class="ghost-btn" onclick="copyCurrentTabLink('about')">Copy Link</button>
+          <button class="back-home-btn" onclick="goHome()">← Back to Home</button>
+        </div>
+      </div>
+      <section id="about">
+        <p class="section-label">About</p>
+        <div class="about-grid fade-up">
+
+          <div>
+            <h2 class="about-heading">What is FlixletteMod?</h2>
+            <p class="about-body">A hub for projects that are actually worth using. Particle simulations, streaming tools, game mods — all built from scratch with attention to detail.</p>
+            <p class="about-body">Everything here is real, working software. No filler.</p>
+            <ul class="check-list">
+              <li><span class="icon">✅</span>Built from scratch</li>
+              <li><span class="icon">✅</span>Open source spirit</li>
+              <li><span class="icon">✅</span>Continuously updated</li>
+              <li><span class="icon">✅</span>No ads, ever</li>
+            </ul>
+          </div>
+
+          <div class="info-cards">
+            <div class="info-card">
+              <div class="info-card-icon">⚡</div>
+              <h4>Performance First</h4>
+              <p>Every project is built to be fast and responsive. No bloat.</p>
+            </div>
+            <div class="info-card">
+              <div class="info-card-icon">🛡️</div>
+              <h4>Privacy Focused</h4>
+              <p>No tracking, no data selling. Your usage is your own.</p>
+            </div>
+            <div class="info-card">
+              <div class="info-card-icon">👤</div>
+              <h4>Solo Creator</h4>
+              <p>Everything here is made by one person — Omelette.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <div class="page-wrap content-tab" data-tab="contact">
+      <div class="tab-heading-row" style="padding-top: 34px;">
+        <p class="section-label" style="margin-bottom:0;">Home / Contact</p>
+        <div class="tab-actions">
+          <button class="ghost-btn" onclick="copyCurrentTabLink('contact')">Copy Link</button>
+          <button class="back-home-btn" onclick="goHome()">← Back to Home</button>
+        </div>
+      </div>
+      <section id="contact">
+        <p class="section-label">Contact</p>
+        <div style="max-width:520px;" class="fade-up">
+          <h2 class="contact-heading">Join the Discord server</h2>
+          <p class="contact-sub">Contact is tabbed now. Discord is the default tab, and it uses a pixel icon placeholder (non-clickable on purpose).</p>
+
+          <div class="tabs-row" role="tablist" aria-label="Contact tabs">
+            <button class="tab-btn active" role="tab" id="tab-discord" aria-selected="true" aria-controls="panel-discord" onclick="setContactTab('discord')">💬 Discord</button>
+            <button class="tab-btn" role="tab" id="tab-email" aria-selected="false" aria-controls="panel-email" onclick="setContactTab('email')">📨 Email</button>
+            <button class="tab-btn" role="tab" id="tab-github" aria-selected="false" aria-controls="panel-github" onclick="setContactTab('github')">🐙 GitHub</button>
+          </div>
+
+          <div class="tab-panel" id="panel-discord" role="tabpanel" aria-labelledby="tab-discord">
+            <span class="pixel-chip" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <rect x="1" y="1" width="5" height="5" rx="1" fill="currentColor"/>
+                <rect x="8" y="1" width="5" height="5" rx="1" fill="currentColor" opacity="0.66"/>
+                <rect x="1" y="8" width="5" height="5" rx="1" fill="currentColor" opacity="0.66"/>
+                <rect x="8" y="8" width="5" height="5" rx="1" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="panel-note">Discord tab active — pixel icon placeholder only (does nothing).</span>
+          </div>
+
+          <div class="tab-panel" id="panel-email" role="tabpanel" aria-labelledby="tab-email" hidden>
+            <a href="mailto:contact@flixlettemod.com" class="panel-note">contact@flixlettemod.com</a>
+          </div>
+
+          <div class="tab-panel" id="panel-github" role="tabpanel" aria-labelledby="tab-github" hidden>
+            <a href="#" class="panel-note">Open GitHub</a>
+          </div>
+
+          <p class="contact-email">Discord status: 🧪 beta rollout</p>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="page-wrap content-tab" data-tab="privacy">
+      <div class="tab-heading-row" style="padding-top: 34px;">
+        <p class="section-label" style="margin-bottom:0;">Home / Privacy</p>
+        <div class="tab-actions">
+          <button class="ghost-btn" onclick="copyCurrentTabLink('privacy')">Copy Link</button>
+          <button class="back-home-btn" onclick="goHome()">← Back to Home</button>
+        </div>
+      </div>
+      <section id="privacy">
+        <p class="section-label">Privacy</p>
+        <h2 class="about-heading" style="margin-bottom:28px;">Privacy Policy</h2>
+        <div class="privacy-grid fade-up">
+          <div class="info-card">
+            <div class="info-card-icon">🗄️</div>
+            <h4>Data Collection</h4>
+            <p>We collect only what's needed. Nothing is sold or shared with third parties.</p>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">🔒</div>
+            <h4>Data Security</h4>
+            <p>Standard encryption throughout. Your information is stored securely and kept minimal.</p>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">👤</div>
+            <h4>Your Rights</h4>
+            <p>Access, modify, or delete your data at any time. We comply with GDPR.</p>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">💬</div>
+            <h4>Questions</h4>
+            <p>Contact privacy@flixlettemod.com for any concerns. We respond promptly.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">FlixletteMod</div>
+          <p class="footer-desc">A portfolio of real projects — simulations, streaming, and mods. Built by Omelette.</p>
+        </div>
+        <div>
+          <p class="footer-col-label">Navigate</p>
+          <div class="footer-links">
+            <a href="#" data-tab-link="projects" onclick="openContentTab('projects'); return false;">Projects</a>
+            <a href="#" data-tab-link="about" onclick="openContentTab('about'); return false;">About</a>
+            <a href="#" data-tab-link="contact" onclick="openContentTab('contact'); return false;">Contact</a>
+            <a href="#" data-tab-link="privacy" onclick="openContentTab('privacy'); return false;">Privacy</a>
+            <a href="#" data-tab-link="info" onclick="openContentTab('info'); return false;">Info</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer-col-label">Contact</p>
+          <div class="footer-links footer-links-mono">
+            <a href="mailto:contact@flixlettemod.com">contact@flixlettemod.com</a>
+            <a href="mailto:privacy@flixlettemod.com">privacy@flixlettemod.com</a>
+            <a href="#">discord.gg/flixlettemod</a>
+          </div>
+        </div>
+      </div>
+      <div class="home-actions" style="margin-bottom:16px;">
+        <button class="home-tab-btn" onclick="openContentTab('projects')">Quick Projects</button>
+        <button class="home-tab-btn" onclick="openContentTab('contact')">Quick Contact</button>
+        <button class="home-tab-btn" onclick="window.open('https://github.com','_blank')">GitHub</button>
+        <button class="home-tab-btn" onclick="window.open('https://linkedin.com','_blank')">LinkedIn</button>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 FlixletteMod</span>
+        <span class="footer-version">v2.1.0</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="modal-overlay" onclick="handleOverlayClick(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <p class="modal-label">Source Code</p>
+          <h3 class="modal-title">Sandboxel Mod</h3>
+        </div>
+        <button class="modal-close" onclick="closeModal()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-line-nums" id="modal-line-nums"></div>
+        <div class="modal-code-wrap">
+          <pre id="modal-code"></pre>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="modal-line-count" id="modal-line-count"></span>
+        <button class="modal-copy-btn" id="copy-btn" onclick="copyCode()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy code
+        </button>
+      </div>
+    </div>
+  </div>
+  <button id="to-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">↑</button>
+
+  <script>
+    const CODE = `// Pixel Lab mod — inject a custom element into Sandboxels
+ elements['neon_sand'] = {
+   color: '#00ffcc',
+   color2: '#0088aa',
+   behavior: behaviors.POWDER,
+   category: 'special',
+   state: 'powder',
+   density: 1200,
+   glow: 0.6,
+   glowColor: '#00ffcc',
+   desc: 'Glowing neon sand',
+ };
+ 
+ if (typeof rebuildMenu === 'function') rebuildMenu();`;
+
+    const header = document.getElementById('site-header');
+    const scrollProgress = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      scrollProgress.style.width = `${Math.max(0, Math.min(100, scrolled))}%`;
+      document.getElementById('to-top-btn').classList.toggle('show', window.scrollY > 280);
+    }, { passive: true });
+
+    const menuBtn  = document.getElementById('menu-btn');
+    const drawer   = document.getElementById('mobile-drawer');
+    const menuIcon = document.getElementById('menu-icon');
+    let menuOpen = false;
+
+    function closeMenu() {
+      menuOpen = false;
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+      menuIcon.innerHTML = `
+        <line x1="3" y1="6" x2="15" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="12" x2="15" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`;
+    }
+
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      drawer.classList.toggle('open', menuOpen);
+      document.body.style.overflow = menuOpen ? 'hidden' : '';
+      menuIcon.innerHTML = menuOpen
+        ? `<line x1="3" y1="3" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <line x1="15" y1="3" x2="3" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`
+        : `<line x1="3" y1="6" x2="15" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+           <line x1="3" y1="12" x2="15" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`;
+    });
+
+    function openLink(url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    const overlay = document.getElementById('modal-overlay');
+
+    function openCodeModal() {
+      const codeEl = document.getElementById('modal-code');
+      const lineNums = document.getElementById('modal-line-nums');
+      const lineCount = document.getElementById('modal-line-count');
+      const lines = CODE.split('\n');
+
+      codeEl.textContent = CODE;
+      lineNums.innerHTML = lines.map((_, i) => `<span>${i + 1}</span>`).join('');
+      lineCount.textContent = `${lines.length} line${lines.length !== 1 ? 's' : ''}`;
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === overlay) closeModal();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    function copyCode() {
+      navigator.clipboard.writeText(CODE).then(() => {
+        const btn = document.getElementById('copy-btn');
+        btn.classList.add('copied');
+        btn.innerHTML = `
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Copied`;
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = `
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy code`;
+        }, 2000);
+      });
+    }
+
+    function setContactTab(tab) {
+      const tabs = ['discord', 'email', 'github'];
+      tabs.forEach((id) => {
+        const tabBtn = document.getElementById(`tab-${id}`);
+        const panel = document.getElementById(`panel-${id}`);
+        const active = tab === id;
+        tabBtn.classList.toggle('active', active);
+        tabBtn.setAttribute('aria-selected', active ? 'true' : 'false');
+        panel.hidden = !active;
+      });
+    }
+
+    const homeWrap = document.querySelector('#home').closest('.page-wrap');
+    const contentTabs = document.querySelectorAll('.content-tab');
+    const tabLinks = document.querySelectorAll('[data-tab-link]');
+    const projectSearch = document.getElementById('project-search');
+    let projectFilter = 'all';
+
+    function setActiveLinks(tab) {
+      tabLinks.forEach((link) => {
+        link.classList.toggle('active-link', link.dataset.tabLink === tab);
+      });
+    }
+
+    function triggerConfetti() {
+      const count = 24;
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement('span');
+        dot.style.position = 'fixed';
+        dot.style.left = `${window.innerWidth * 0.35 + Math.random() * window.innerWidth * 0.3}px`;
+        dot.style.top = '80px';
+        dot.style.width = '6px';
+        dot.style.height = '6px';
+        dot.style.borderRadius = '50%';
+        dot.style.pointerEvents = 'none';
+        dot.style.zIndex = '250';
+        dot.style.background = Math.random() > 0.5 ? '#4ade80' : '#38bdf8';
+        dot.style.transition = 'transform 700ms ease, opacity 700ms ease';
+        document.body.appendChild(dot);
+        requestAnimationFrame(() => {
+          dot.style.transform = `translate(${(Math.random() - 0.5) * 240}px, ${120 + Math.random() * 160}px)`;
+          dot.style.opacity = '0';
+        });
+        setTimeout(() => dot.remove(), 760);
+      }
+    }
+
+    function updateHash(tab) {
+      history.replaceState(null, '', `#${tab}`);
+    }
+
+    function copyCurrentTabLink(tab) {
+      const url = `${location.origin}${location.pathname}#${tab}`;
+      navigator.clipboard.writeText(url);
+    }
+
+    function setProjectFilter(filter) {
+      projectFilter = filter;
+      document.querySelectorAll('.filter-chip').forEach((chip) => {
+        chip.classList.toggle('active', chip.dataset.filter === filter);
+      });
+      applyProjectFilter();
+    }
+
+    function applyProjectFilter() {
+      const query = (projectSearch?.value || '').toLowerCase().trim();
+      document.querySelectorAll('.project-item').forEach((item) => {
+        const tags = (item.dataset.tags || '').toLowerCase();
+        const text = item.textContent.toLowerCase();
+        const passFilter = projectFilter === 'all' || tags.includes(projectFilter);
+        const passQuery = !query || text.includes(query) || tags.includes(query);
+        item.style.display = passFilter && passQuery ? '' : 'none';
+      });
+    }
+
+    function animateCounters() {
+      document.querySelectorAll('.stat-val[data-count]').forEach((el) => {
+        const target = Number(el.dataset.count || 0);
+        const start = performance.now();
+        const duration = 700;
+        const tick = (now) => {
+          const p = Math.min(1, (now - start) / duration);
+          el.textContent = String(Math.round(target * p));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    }
+
+    function openContentTab(tab) {
+      const validTabs = ['projects', 'about', 'contact', 'privacy', 'info'];
+      if (!validTabs.includes(tab)) return;
+      homeWrap.style.display = 'none';
+      contentTabs.forEach((el) => {
+        el.classList.toggle('active', el.dataset.tab === tab);
+      });
+      setActiveLinks(tab);
+      updateHash(tab);
+      if (tab === 'projects') triggerConfetti();
+      if (tab === 'info') animateCounters();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goHome() {
+      contentTabs.forEach((el) => el.classList.remove('active'));
+      homeWrap.style.display = 'block';
+      setActiveLinks('');
+      history.replaceState(null, '', location.pathname);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      localStorage.setItem('flix-theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    }
+
+    if (localStorage.getItem('flix-theme') === 'light') {
+      document.body.classList.add('light-mode');
+    }
+
+    if (projectSearch) {
+      projectSearch.addEventListener('input', applyProjectFilter);
+    }
+
+    const startHash = location.hash.replace('#', '');
+    if (startHash) openContentTab(startHash);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.altKey && ['1','2','3','4','5'].includes(e.key)) {
+        const map = { '1': 'projects', '2': 'about', '3': 'contact', '4': 'privacy', '5': 'info' };
+        openContentTab(map[e.key]);
+      }
+      if (e.altKey && e.key.toLowerCase() === 'h') goHome();
+    });
+
+    let touchStartX = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    window.addEventListener('touchend', (e) => {
+      const deltaX = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(deltaX) < 70) return;
+      const tabs = ['projects', 'about', 'contact', 'privacy', 'info'];
+      const active = [...contentTabs].find((t) => t.classList.contains('active'))?.dataset.tab;
+      if (!active) return;
+      const i = tabs.indexOf(active);
+      if (deltaX < 0 && i < tabs.length - 1) openContentTab(tabs[i + 1]);
+      if (deltaX > 0 && i > 0) openContentTab(tabs[i - 1]);
+    }, { passive: true });
+
+    const quotes = [
+      'Build fast. Ship clean. Improve forever.',
+      'Small details make big projects feel premium.',
+      'Prototype quickly, polish intentionally.',
+      'Good tools make creators unstoppable.',
+    ];
+    const quoteEl = document.getElementById('random-quote');
+    if (quoteEl) quoteEl.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    fadeEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
